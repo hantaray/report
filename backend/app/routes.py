@@ -1,7 +1,7 @@
 from flask import request, jsonify
-from app import db
-from app.models import User, Report
 from flask_jwt_extended import create_access_token
+from app.models import User, Report
+from app import db
 
 def register_routes(app):
     @app.route('/register', methods=['POST'])

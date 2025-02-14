@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from app.config import Config
-from app.routes import register_routes
 
 db = SQLAlchemy()
 jwt = JWTManager()
@@ -15,8 +14,12 @@ def create_app():
     jwt.init_app(app)
 
     with app.app_context():
-        from app import routes
-        db.create_all()
+        from app.routes import register_routes  # Importiere die Routen hier
         register_routes(app)
+        db.create_all()
 
     return app
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(host='0.0.0.0', port=5000)
