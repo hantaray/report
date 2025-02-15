@@ -7,7 +7,10 @@ def register_routes(app):
     @app.route('/register', methods=['POST'])
     def register():
         data = request.get_json()
-        new_user = User(username=data['username'], password=data['password'])
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({"message": "Username already exists"}), 400
+        new_user = User(username=data['username'])
+        new_user.password = data['password']
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"message": "User registered successfully"}), 201
@@ -16,7 +19,7 @@ def register_routes(app):
     def login():
         data = request.get_json()
         user = User.query.filter_by(username=data['username']).first()
-        if user and user.password == data['password']:
+        if user and user.verify_password(data['password']):
             access_token = create_access_token(identity={'username': user.username})
             return jsonify(access_token=access_token), 200
         return jsonify({"message": "Invalid credentials"}), 401
