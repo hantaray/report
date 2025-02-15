@@ -6,12 +6,20 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db/reporting_db
+      - FLASK_APP=app
+      - FLASK_ENV=development
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db/reporting_db
       - JWT_SECRET_KEY=super-secret-key
-      - REDIS_URL=redis://redis:6379
     depends_on:
       db:
         condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
 
   db:
     image: postgres:latest
