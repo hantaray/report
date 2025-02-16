@@ -20,19 +20,21 @@ function Report() {
   };
 
   return (
-    <div className="report p-4">
-      <h2 className="text-2xl font-bold mb-4">Report</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-          Submit Report
-        </button>
-      </form>
+    <div className="report p-4 flex justify-center items-start min-h-screen">
+      <div className="w-full max-w-sm p-4 rounded shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Report</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+            Submit Report
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
