@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["node", "connect-history-api-fallback", "express-serve-static-core", "http-proxy"]
   },
   "include": ["src"]
 }
