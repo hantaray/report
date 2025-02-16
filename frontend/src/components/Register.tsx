@@ -9,9 +9,14 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/register', { username, password });
-      alert(response.data.message);
+      alert(`Registered as ${username}`); // Show username after successful registration
     } catch (error: any) {
-      alert(error.response.data.message);
+      // Safely check if the error response exists
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message); // Display server error message
+      } else {
+        alert('An error occurred. Please try again.'); // Handle network or other errors
+      }
     }
   };
 
